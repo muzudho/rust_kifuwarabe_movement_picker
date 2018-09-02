@@ -1,0 +1,14 @@
+[package]
+name = "kifuwarabe_movement_picker"
+version = "0.1.0"
+authors = ["むずでょ <muzudho1@gmail.com>"]
+
+[dependencies]
+
+[dependencies.kifuwarabe_position]
+git = "https://github.com/muzudho/rust_kifuwarabe_position.git"
+rev = "0f43771fd890e9881e8d470b84f54177fe29a7ca"
+
+[dependencies.kifuwarabe_movement]
+git = "https://github.com/muzudho/rust_kifuwarabe_movement.git"
+rev = "a5444fe7b495c86a02b38822b15456a42eeba8ad"
