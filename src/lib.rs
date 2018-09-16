@@ -188,13 +188,13 @@ pub fn kmdir_id(kmdir:&KmDir) -> usize{
 /// * `hashset_work` - 空っぽのハッシュセット。計算途中で使う。
 /// * `hashset_result` - 空っぽのハッシュセット。計算途中で使う。
 /// * `hashset_drop` - 空っぽのハッシュセット。計算途中で使う。
-pub fn insert_picked_movement(
+pub fn insert_picked_movement<S0: ::std::hash::BuildHasher, S1: ::std::hash::BuildHasher, S2: ::std::hash::BuildHasher, S3: ::std::hash::BuildHasher>(
     cur_position: &Position,
     game_record: &GameRecord,
-    ss_hashset: &mut HashSet<u64>,
-    hashset_work: &mut HashSet<umasu>,
-    hashset_result: &mut HashSet<umasu>,
-    hashset_drop: &mut HashSet<umasu>,
+    ss_hashset: &mut HashSet<u64, S0>,
+    hashset_work: &mut HashSet<umasu, S1>,
+    hashset_result: &mut HashSet<umasu, S2>,
+    hashset_drop: &mut HashSet<umasu, S3>,
     ) {
     // +----------------+
     // | 盤上の駒の移動 |
@@ -304,11 +304,11 @@ pub fn insert_picked_movement(
  *
  * そこに打てる駒種類を返す。
  */
-pub fn insert_da_kms_by_ms_km(
+pub fn insert_da_kms_by_ms_km<S: ::std::hash::BuildHasher>(
     cur_position: &Position,
     ms_dst: umasu,
     km_dst: Koma,
-    result_kms: &mut HashSet<usize>
+    result_kms: &mut HashSet<usize, S>
 ){
     // assert_banjo_ms(ms_dst,"Ｉnsert_da_kms_by_ms_km");
 
@@ -400,12 +400,12 @@ pub fn insert_da_kms_by_ms_km(
 /// # Returns.
 ///
 /// ハッシュセット。
-pub fn insert_dst_by_ms_km(
+pub fn insert_dst_by_ms_km<S0: ::std::hash::BuildHasher, S1: ::std::hash::BuildHasher>(
     ms_src: umasu,
     km_src: Koma,
     to_promotion: bool,
-    hashset_work: &mut HashSet<umasu>,
-    hashset_result: &mut HashSet<umasu>,
+    hashset_work: &mut HashSet<umasu, S0>,
+    hashset_result: &mut HashSet<umasu, S1>,
     position1: &Position
 ) {
 
@@ -711,10 +711,10 @@ pub fn insert_dst_by_ms_km(
  * その升に到達できる駒が居る升を取得☆（＾～＾）
  * TODO 成りの動きも考えたい。升だけではなく、成りの有無☆（＾～＾）
  */
-pub fn insert_narazu_src_by_sn_ms(
+pub fn insert_narazu_src_by_sn_ms<S: ::std::hash::BuildHasher>(
     sn: Sengo,
     ms_dst: umasu,
-    hashset_result: &mut HashSet<umasu>,
+    hashset_result: &mut HashSet<umasu, S>,
     position1: &Position
 ) {
     // assert_banjo_ms(ms_dst,"Ｉnsert_narazu_src_by_sn_ms");
@@ -964,10 +964,10 @@ pub fn insert_narazu_src_by_sn_ms(
 /**
  * 移動元升生成（成る前）
  */
-pub fn insert_narumae_src_by_sn_ms(
+pub fn insert_narumae_src_by_sn_ms<S: ::std::hash::BuildHasher>(
     sn: Sengo,
     ms_dst: umasu,
-    hashset_result: &mut HashSet<umasu>,
+    hashset_result: &mut HashSet<umasu, S>,
     position1: &Position
 ) {
     // assert_banjo_ms(ms_dst,"Ｉnsert_narumae_src_by_sn_ms");
